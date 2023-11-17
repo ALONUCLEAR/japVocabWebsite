@@ -30,7 +30,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   constructor(private storageService: StorageService) { }
   ngOnInit(): void {
     this.isDarkMode = this.storageService.getStorage('enableDarkMode', true) ?? false;
-    this.setDarkmodeClasses();
   }
   
   ngAfterViewInit() {
@@ -42,6 +41,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
       offIcon.firstChild.setAttribute('d', icons.sun);
       offIcon.firstChild.setAttribute('fill', '#e86609');
     }
+    
+    this.setDarkmodeClasses();
   }
 
   toggleDarkTheme(): void {
