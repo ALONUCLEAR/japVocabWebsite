@@ -1,2 +1,2 @@
 # japVocabWebsite
-A website to server the japanese vocab application
+A website to serve as the japanese vocab application
