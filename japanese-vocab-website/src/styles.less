@@ -1,0 +1,23 @@
+@light-mode-color: rgb(46, 45, 45);
+@light-mode-background-color: rgb(222, 222, 222);
+
+@dark-mode-color: rgb(235, 235, 235);
+@dark-mode-background-color: rgb(53, 53, 53);
+html, body {
+    margin: 0; padding: 0;
+    min-height: 100vh;
+    * {
+        color: inherit;
+        background-color: inherit;
+    }
+
+    color: @light-mode-color;
+    background-color: @light-mode-background-color;
+    
+    &.dark {
+        color: @dark-mode-color;
+        background-color: @dark-mode-background-color;    
+    }
+}
+
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

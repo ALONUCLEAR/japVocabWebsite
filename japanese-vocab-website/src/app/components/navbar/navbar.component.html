@@ -1,0 +1,4 @@
+<a *ngFor="let  route of routes" [routerLink]="route.path" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+  {{ route.title }}
+</a>
+<mat-slide-toggle #darkModeSwitch [checked]="isDarkMode" (toggleChange)="toggleDarkTheme()"></mat-slide-toggle>
