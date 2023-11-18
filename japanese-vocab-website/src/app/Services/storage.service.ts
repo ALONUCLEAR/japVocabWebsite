@@ -21,14 +21,15 @@ export class StorageService {
     return this.getSessionStorage(key, parsable) ?? this.getLocalStorage(key, parsable);
   }
 
-  public getLocalStorage<T>(key: string, parsable: boolean = false): T | null {
+  //Both of these are protected to ensure I always use getStorage, so If I change my mind on where to store some data, I only need to change the setter I use
+  protected getLocalStorage<T>(key: string, parsable: boolean = false): T | null {
     const res = localStorage.getItem(key);
     if(!res) return null;
 
     return parsable ? JSON.parse(res) : res as T;
   }
 
-  public getSessionStorage<T>(key: string, parsable: boolean = false): T | null {
+  protected getSessionStorage<T>(key: string, parsable: boolean = false): T | null {
     const res = sessionStorage.getItem(key);
     if(!res) return null;
 
