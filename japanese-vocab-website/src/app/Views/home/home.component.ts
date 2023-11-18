@@ -1,18 +1,19 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { RecordsService } from 'src/app/Services/records.service';
 import { StorageService } from 'src/app/Services/storage.service';
 import {
   FilterInput,
   FilterOutput,
 } from 'src/app/components/filter/filter.component';
 import { TableField } from 'src/app/components/table/table.component';
-//Maybe will be generated with codegen later on
-enum TestType {
+//Until I fix the playground and could generated with codegen later on
+export enum TestType {
   SingleDay = 'SingleDay',
   Review = 'Review',
 }
 
-interface Record {
+export interface Record {
   username: string;
   testType: TestType;
   dayNum: number;
@@ -27,33 +28,6 @@ interface DisplayRecord {
   dateSet: string;
 }
 
-const fullMockData: Record[] = [
-  {
-    username: 'single',
-    testType: TestType.SingleDay,
-    dayNum: 13,
-    totalTime: 25.327,
-    dateSet: new Date(2023, 10, 17, 14, 15),
-  },
-  {
-    username: 'review',
-    testType: TestType.Review,
-    dayNum: 9,
-    totalTime: 55.463,
-    dateSet: new Date(),
-  },
-  {
-    username: 'Longus Namus',
-    testType: TestType.SingleDay,
-    dayNum: 160,
-    totalTime: 90.54,
-    dateSet: new Date(2023, 10, 3, 17, 53)
-  }
-];
-[1, 1, 1, 1, 1, 1, 1].forEach((_) =>
-  fullMockData.push(...fullMockData)
-);
-
 interface FilterableField<TData> extends FilterInput {
   filterFunc(data: TData, target: any): boolean;
 }
@@ -63,7 +37,8 @@ interface FilterableField<TData> extends FilterInput {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.less'],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  isLoading: boolean = true;
   tableFields: TableField[] = [
     { name: 'username', title: 'User' },
     { name: 'dayNum', title: 'Day' },
@@ -112,13 +87,27 @@ export class HomeComponent {
     name,
     type,
   }));
-  constructor(private storageService: StorageService) {
+  constructor(
+    private storageService: StorageService,
+    private recordsService: RecordsService
+  ) {
     this.selectedTabIndex =
       this.storageService.getStorage('tabIndex', true) ?? 0;
     this.testTypeOptions = Object.values(TestType);
-    const displayData = fullMockData.map((record) => ({
+  }
+  
+  data: Record[] = []; 
+
+  async ngOnInit(): Promise<void> {
+    this.isLoading = true;
+    this.data = await this.recordsService.getAllRecords();
+    const displayData = this.data.map((record) => ({
       ...record,
-      dateSet: record.dateSet.toLocaleDateString('en-uk', {year: '2-digit', month: 'short', day: 'numeric'})
+      dateSet: record.dateSet.toLocaleDateString('en-uk', {
+        year: '2-digit',
+        month: 'short',
+        day: 'numeric',
+      }),
     }));
     this.testTypeOptions.forEach((type) => {
       const source: MatTableDataSource<DisplayRecord> =
@@ -126,6 +115,7 @@ export class HomeComponent {
       source.data = displayData.filter(({ testType }) => testType === type);
       this.sources[type] = source;
     });
+     this.isLoading = false;
   }
 
   selectTab(index: number): void {

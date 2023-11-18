@@ -1,12 +1,19 @@
-<!--TODO: make the data come from the db(the graphql api)-->
+<mat-spinner *ngIf="isLoading else page"></mat-spinner>
+<ng-template #page>
+    <mat-tab-group *ngIf="data?.length else noData" mat-stretch-tabs="true" mat-align-tabs="center" [selectedIndex]="selectedTabIndex" (selectedIndexChange)="selectTab($event)">
+        <mat-tab *ngFor="let typeOption of testTypeOptions" [label]="testTypeDisplayNames[typeOption]" >
+            <mat-expansion-panel>
+                <mat-expansion-panel-header><i class="fa-solid fa-list"></i></mat-expansion-panel-header>
+                <filters [fields]="filterFields" (filtersChanged)="changeFilters(typeOption, $event)"></filters>
+            </mat-expansion-panel>
+            <data-table [columns]="tableFields" [dataSource]="sources[typeOption]" [tableName]="typeOption + ' Records'">
+            </data-table>
+        </mat-tab>
+    </mat-tab-group>
+</ng-template>
 
-<mat-tab-group mat-stretch-tabs="true" mat-align-tabs="center" [selectedIndex]="selectedTabIndex" (selectedIndexChange)="selectTab($event)">
-    <mat-tab *ngFor="let typeOption of testTypeOptions" [label]="testTypeDisplayNames[typeOption]" >
-        <mat-expansion-panel>
-            <mat-expansion-panel-header><i class="fa-solid fa-list"></i></mat-expansion-panel-header>
-            <filters [fields]="filterFields" (filtersChanged)="changeFilters(typeOption, $event)"></filters>
-        </mat-expansion-panel>
-        <data-table [columns]="tableFields" [dataSource]="sources[typeOption]" [tableName]="typeOption + ' Records'">
-        </data-table>
-    </mat-tab>
-</mat-tab-group>
+<ng-template #noData>
+    <h2>
+        No data found 😔
+    </h2>
+</ng-template>

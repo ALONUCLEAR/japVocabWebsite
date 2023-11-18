@@ -1,8 +1,9 @@
 import {
-  AfterViewInit,
   Component,
   Input,
+  OnChanges,
   OnInit,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -20,14 +21,14 @@ export interface TableField<T = any> {
 type PageSettings = {
   pageSize: number;
   pageIndex: number;
-}
+};
 
 @Component({
   selector: 'data-table',
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.less'],
 })
-export class TableComponent<TData> implements AfterViewInit, OnInit {
+export class TableComponent<TData> implements OnChanges, OnInit {
   @Input() columns: TableField[] = [];
   @Input() pageSizeOptions: number[] = [5, 10, 25];
   @Input() tableName?: string;
@@ -46,19 +47,31 @@ export class TableComponent<TData> implements AfterViewInit, OnInit {
   savePageSettings(ev: PageEvent): void {
     if (!this.tableName) return;
 
-    const config: PageSettings = { pageSize: ev.pageSize, pageIndex: ev.pageIndex };
-    this.storageService.setSessionStorage(`${this.tableName} Config`, JSON.stringify(config));
+    const config: PageSettings = {
+      pageSize: ev.pageSize,
+      pageIndex: ev.pageIndex,
+    };
+    this.storageService.setSessionStorage(
+      `${this.tableName} Config`,
+      JSON.stringify(config)
+    );
   }
 
-  ngAfterViewInit(): void {
-    if(this.paginator) {
-      const { pageSize, pageIndex} = this.storageService.getStorage<PageSettings>(`${this.tableName} Config`, true)
-        ?? {pageSize: this.pageSizeOptions[0], pageIndex: 0};
-      this.paginator.pageSize = pageSize; this.paginator.pageIndex = pageIndex;
-      this.dataSource.paginator = this.paginator;  
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['dataSource'] && this.dataSource) {
+      if (this.paginator) {
+        const { pageSize, pageIndex } =
+          this.storageService.getStorage<PageSettings>(
+            `${this.tableName} Config`,
+            true
+          ) ?? { pageSize: this.pageSizeOptions[0], pageIndex: 0 };
+        this.paginator.pageSize = pageSize;
+        this.paginator.pageIndex = pageIndex;
+        this.dataSource.paginator = this.paginator;
+      }
+
+      this.dataSource.sort = this.sort ?? null;
     }
-    
-    this.dataSource.sort = this.sort ?? null;
   }
 
   sortData<T>(sortFunc: SortFunc<T>, fieldName: string): void {
