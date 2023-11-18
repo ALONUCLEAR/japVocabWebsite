@@ -1,0 +1,5 @@
+<mat-form-field *ngFor="let field of fields">
+  <input matInput [placeholder]="field.name" [type]="field.type ?? 'text'"
+    [ngModel]="fieldFilterValues[field.name]"
+    (ngModelChange)="onFiltersChanges(field, $event)"/>
+</mat-form-field>

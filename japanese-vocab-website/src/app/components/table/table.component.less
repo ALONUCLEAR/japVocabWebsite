@@ -1,0 +1,24 @@
+:host {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    min-height: 64px;
+    padding: 8px 24px 0;
+  }
+
+  mat-header-row, mat-header-cell, mat-row, mat-cell {
+    color: unset;
+    text-align: unset;
+    overflow: auto;
+  }
+
+  ::ng-deep mat-paginator {
+    align-self: center;
+    button {
+      color: unset !important;
+    }
+  }
+}
