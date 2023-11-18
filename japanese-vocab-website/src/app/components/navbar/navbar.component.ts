@@ -19,7 +19,7 @@ const icons = {
 })
 export class NavbarComponent implements OnInit, AfterViewInit {
   routes: NavbarRoute[] = [
-    { path: '', title: 'Home' },
+    { path: '', title: 'Records' },
     { path: 'theme', title: 'Themes' },
     { path: 'contact', title: 'Contact Me' },
   ];
@@ -53,6 +53,8 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
   setDarkmodeClasses(): void {
     document.body.classList.toggle('dark', this.isDarkMode);
-    (<HTMLElement>this.element?.nativeElement)?.classList.toggle('dark', this.isDarkMode);
+    const darkModeSwitch: HTMLElement = this.element?.nativeElement;
+    darkModeSwitch?.classList.toggle('dark', this.isDarkMode);
+    darkModeSwitch?.parentElement?.classList.toggle('dark', this.isDarkMode);
   }
 }
