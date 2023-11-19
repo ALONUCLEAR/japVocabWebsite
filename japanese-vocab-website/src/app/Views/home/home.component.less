@@ -1,0 +1,46 @@
+:host {
+  border: 0.5rem ridge rgb(40, 197, 95);
+  display: block;
+  margin: auto;
+  text-align: center;
+  max-width: 80rem;
+
+  mat-spinner {
+    margin: auto;
+    stroke: green;
+    &::ng-deep {
+      svg {
+        stroke: green;
+      }
+    }
+  }
+
+  mat-expansion-panel {
+    padding: 2% 0;
+    
+    & > * {
+      margin: 1rem 0;
+    }
+  }
+
+  ::ng-deep mat-tab-group {
+    height: 100%;
+    ::ng-deep mat-tab-header {
+      position: sticky;
+      top: 3rem;
+      @media screen and (max-width: 992px) {
+        top: 1.5rem;
+      }
+      z-index: 5;
+      .mdc-tab--active {
+        color: #23a231;
+        font-weight: 500;
+        position: relative;
+      }
+
+      .mat-ripple {
+        display: none;
+      }
+    }
+  }
+}

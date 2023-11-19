@@ -3,14 +3,14 @@
 :host {
   display: flex;
   justify-content: space-evenly;
-  width: 70%;
   margin: auto;
-  font-size: larger;
+  font-size: large;
   align-items: center;
   padding: 1% 0;
   z-index: 10;
   position: sticky;
-  top: 0;
+  //Use -1px to make sure there's no content flashing at the top of the page when scrolling
+  top: -1px;
 
   a {
     text-decoration: none;
@@ -25,11 +25,5 @@
   mat-slide-toggle {
     float: right;
     padding: 0.1em 1em;
-    border: 2px double @light-mode-color;
-    border-radius: 10px;
-
-    &.dark {
-      border-color: @dark-mode-color;
-    }
   }
 }

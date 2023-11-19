@@ -1,16 +1,24 @@
 @import '../../../styles.less';
 
 :host {
-    border: 0.5rem ridge rgb(197, 40, 197);
-    display: flex;
-    margin: auto;
-    max-width: 50%;
-    mat-card {
-        color: inherit;
-        background-color: inherit;
+  border: 0.5rem ridge rgb(197, 40, 197);
+  display: flex;
+  margin: auto;
+  max-width: 80rem;
 
-        mat-card-footer {
-            padding: 2%;
-        }
+  mat-card {
+    color: inherit;
+    background-color: inherit;
+
+    mat-card-footer {
+      display: flex;
+      padding: 1rem;
+
+      .note {
+        text-decoration: underline;
+        font-weight: 500;
+        margin: 0.5rem;
+      }
     }
+  }
 }

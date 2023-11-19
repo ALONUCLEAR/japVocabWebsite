@@ -1,0 +1,45 @@
+@import '../../../styles.less';
+
+:host {
+  .container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .header {
+    min-height: 64px;
+  }
+
+  mat-header-row,
+  mat-header-cell,
+  mat-row,
+  mat-cell {
+    color: unset;
+    text-align: unset;
+    overflow: auto;
+  }
+
+  ::ng-deep mat-paginator {
+    align-self: center;
+
+    button {
+      color: unset !important;
+    }
+
+    .mat-mdc-paginator-container {
+      justify-content: center;
+    }
+
+    ::ng-deep mat-select {
+      .mat-mdc-select-value {
+        text-align: center;
+
+        .mat-mdc-select-value-text span {
+          z-index: @select-z-index;
+          position: relative;
+          text-align: center;
+        }
+      }
+    }
+  }
+}

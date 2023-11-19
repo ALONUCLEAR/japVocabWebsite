@@ -19,7 +19,7 @@ const icons = {
 })
 export class NavbarComponent implements OnInit, AfterViewInit {
   routes: NavbarRoute[] = [
-    { path: '', title: 'Home' },
+    { path: '', title: 'Records' },
     { path: 'theme', title: 'Themes' },
     { path: 'contact', title: 'Contact Me' },
   ];
@@ -30,18 +30,18 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   constructor(private storageService: StorageService) { }
   ngOnInit(): void {
     this.isDarkMode = this.storageService.getStorage('enableDarkMode', true) ?? false;
-    this.setDarkmodeClasses();
   }
   
   ngAfterViewInit() {
     if (this.element){
       const onIcon = this.element.nativeElement.querySelector('.mdc-switch__icon--on');
       onIcon.firstChild.setAttribute('d', icons.moon);
-      onIcon.firstChild.setAttribute('fill', 'magenta');
       const offIcon = this.element.nativeElement.querySelector('.mdc-switch__icon--off');
       offIcon.firstChild.setAttribute('d', icons.sun);
       offIcon.firstChild.setAttribute('fill', '#e86609');
     }
+    
+    this.setDarkmodeClasses();
   }
 
   toggleDarkTheme(): void {
@@ -52,6 +52,5 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
   setDarkmodeClasses(): void {
     document.body.classList.toggle('dark', this.isDarkMode);
-    (<HTMLElement>this.element?.nativeElement)?.classList.toggle('dark', this.isDarkMode);
   }
 }

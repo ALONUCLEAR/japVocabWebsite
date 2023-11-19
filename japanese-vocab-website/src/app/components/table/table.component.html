@@ -1,0 +1,22 @@
+<div class="header">
+  <div class="container">
+    <mat-table [dataSource]="dataSource" matSort>
+      <ng-container *ngFor="let column of columns" [matColumnDef]="column.name">
+        <mat-header-cell *matHeaderCellDef>
+            <ng-container *ngIf="column.sortFunc; else sortlessColumn">
+              <div mat-sort-header (click)="sortData(column.sortFunc, column.name)">
+                {{ column.title ?? column.name }}
+              </div>
+            </ng-container>
+            <ng-template #sortlessColumn>
+              {{ column.title ?? column.name }}
+            </ng-template>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row"> {{ row[column.name] }} </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="columnNames"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: columnNames"> </mat-row>
+    </mat-table>
+    <mat-paginator [pageSizeOptions]="pageSizeOptions" (page)="savePageSettings($event)"></mat-paginator>
+  </div>
+</div>
