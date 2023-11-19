@@ -164,6 +164,6 @@ export class HomeComponent implements OnInit {
         filterFunc(data, value[name])
       );
     //basically just here to trigger the filterring
-    this.sources[type].filter = value['username'] ?? value['day'];
+    this.sources[type].filter = value['User'] ?? value['Day'];
   }
 }
