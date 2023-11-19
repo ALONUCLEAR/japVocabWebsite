@@ -7,6 +7,8 @@ import {
   FilterOutput,
 } from 'src/app/components/filter/filter.component';
 import { TableField } from 'src/app/components/table/table.component';
+import { environment } from 'src/environments/environment';
+
 //Until I fix the playground and could generated with codegen later on
 export enum TestType {
   SingleDay = 'SingleDay',
@@ -31,6 +33,34 @@ interface DisplayRecord {
 interface FilterableField<TData> extends FilterInput {
   filterFunc(data: TData, target: any): boolean;
 }
+
+const randInt = (min: number = 0, max: number = 10) =>
+  min + Math.floor(Math.random() * (max - min));
+const randStr = (len: number = 8): string => {
+  let str = '';
+  for (let i = 0; i < len; i++) {
+    str += String.fromCharCode(97 + randInt(0, 25));
+  }
+
+  return str;
+};
+
+const generateMockData = () => {
+  const mockData: Record[] = [];
+  for (let index = 0; index < 1000; index++) {
+    mockData.push({
+      dateSet: new Date(
+        randInt(new Date(2020, 1, 1).getTime(), new Date().getTime())
+      ),
+      username: randStr(),
+      dayNum: randInt(0, 150),
+      testType: randInt(0, 2) === 0 ? TestType.SingleDay : TestType.Review,
+      totalTime: randInt(0, 140),
+    });
+  }
+
+  return mockData;
+};
 
 @Component({
   selector: 'app-home',
@@ -95,12 +125,18 @@ export class HomeComponent implements OnInit {
       this.storageService.getStorage('tabIndex', true) ?? 0;
     this.testTypeOptions = Object.values(TestType);
   }
-  
-  data: Record[] = []; 
+
+  data: Record[] = [];
 
   async ngOnInit(): Promise<void> {
     this.isLoading = true;
-    this.data = await this.recordsService.getAllRecords();
+
+    if (environment.useRealData) {
+      this.data = await this.recordsService.getAllRecords();
+    } else {
+      this.data = generateMockData();
+    }
+
     const displayData = this.data.map((record) => ({
       ...record,
       dateSet: record.dateSet.toLocaleDateString('en-uk', {
@@ -115,7 +151,7 @@ export class HomeComponent implements OnInit {
       source.data = displayData.filter(({ testType }) => testType === type);
       this.sources[type] = source;
     });
-     this.isLoading = false;
+    this.isLoading = false;
   }
 
   selectTab(index: number): void {
