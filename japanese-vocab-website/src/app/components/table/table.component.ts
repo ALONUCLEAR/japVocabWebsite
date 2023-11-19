@@ -1,9 +1,8 @@
 import {
+  AfterViewInit,
   Component,
   Input,
-  OnChanges,
   OnInit,
-  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -28,7 +27,7 @@ type PageSettings = {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.less'],
 })
-export class TableComponent<TData> implements OnChanges, OnInit {
+export class TableComponent<TData> implements AfterViewInit, OnInit {
   @Input() columns: TableField[] = [];
   @Input() pageSizeOptions: number[] = [5, 10, 25];
   @Input() tableName?: string;
@@ -57,21 +56,23 @@ export class TableComponent<TData> implements OnChanges, OnInit {
     );
   }
 
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['dataSource'] && this.dataSource) {
-      if (this.paginator) {
-        const { pageSize, pageIndex } =
-          this.storageService.getStorage<PageSettings>(
-            `${this.tableName} Config`,
-            true
-          ) ?? { pageSize: this.pageSizeOptions[0], pageIndex: 0 };
-        this.paginator.pageSize = pageSize;
-        this.paginator.pageIndex = pageIndex;
-        this.dataSource.paginator = this.paginator;
-      }
-
-      this.dataSource.sort = this.sort ?? null;
+  initPaginatorAndSort() {
+    if (this.paginator) {
+      const { pageSize, pageIndex } =
+        this.storageService.getStorage<PageSettings>(
+          `${this.tableName} Config`,
+          true
+        ) ?? { pageSize: this.pageSizeOptions[0], pageIndex: 0 };
+      this.paginator.pageSize = pageSize;
+      this.paginator.pageIndex = pageIndex;
+      this.dataSource.paginator = this.paginator;
     }
+
+    this.dataSource.sort = this.sort ?? null;
+  }
+
+  ngAfterViewInit(): void {
+    this.initPaginatorAndSort();
   }
 
   sortData<T>(sortFunc: SortFunc<T>, fieldName: string): void {
