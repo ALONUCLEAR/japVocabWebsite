@@ -36,7 +36,6 @@ export class NavbarComponent implements OnInit, AfterViewInit {
     if (this.element){
       const onIcon = this.element.nativeElement.querySelector('.mdc-switch__icon--on');
       onIcon.firstChild.setAttribute('d', icons.moon);
-      onIcon.firstChild.setAttribute('fill', 'magenta');
       const offIcon = this.element.nativeElement.querySelector('.mdc-switch__icon--off');
       offIcon.firstChild.setAttribute('d', icons.sun);
       offIcon.firstChild.setAttribute('fill', '#e86609');
@@ -53,8 +52,5 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
   setDarkmodeClasses(): void {
     document.body.classList.toggle('dark', this.isDarkMode);
-    const darkModeSwitch: HTMLElement = this.element?.nativeElement;
-    darkModeSwitch?.classList.toggle('dark', this.isDarkMode);
-    darkModeSwitch?.parentElement?.classList.toggle('dark', this.isDarkMode);
   }
 }

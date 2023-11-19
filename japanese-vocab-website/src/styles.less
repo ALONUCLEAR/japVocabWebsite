@@ -3,21 +3,103 @@
 
 @dark-mode-color: rgb(235, 235, 235);
 @dark-mode-background-color: rgb(53, 53, 53);
-html, body {
-    margin: 0; padding: 0;
-    min-height: 100vh;
-    * {
-        color: inherit;
-        background-color: inherit;
+html,
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  * {
+    color: inherit;
+    background-color: inherit;
+  }
+
+  color: @light-mode-color;
+
+  .mat-expansion-panel-header > .mat-expansion-indicator:after {
+    color: @light-mode-color;
+  }
+  background-color: @light-mode-background-color;
+  --mat-option-label-text-color: unset;
+  --mdc-filled-text-field-focus-active-indicator-color: unset;
+  .mat-mdc-paginator-icon {
+    fill: @light-mode-color !important;
+  }
+  &.dark {
+    color: @dark-mode-color;
+    background-color: @dark-mode-background-color;
+
+    .cdk-overlay-pane {
+      background-color: @dark-mode-background-color;
     }
 
-    color: @light-mode-color;
-    background-color: @light-mode-background-color;
-    
-    &.dark {
-        color: @dark-mode-color;
-        background-color: @dark-mode-background-color;    
+    .mat-mdc-paginator-icon {
+      fill: @dark-mode-color !important;
     }
+
+    .mat-expansion-panel-header > .mat-expansion-indicator:after {
+      color: @dark-mode-color;
+    }
+  }
 }
 
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.mat-mdc-table,
+.mat-mdc-paginator,
+.mat-expansion-panel,
+.mat-mdc-form-field,
+.mat-mdc-select-panel,
+.mat-mdc-tab:not(.mdc-tab--active) {
+  color: inherit !important;
+  background-color: inherit !important;
+  *:not(.mdc-list-item span, .mdc-list-item) {
+    color: inherit !important;
+    background-color: inherit !important;
+  }
+  input::placeholder {
+    color: inherit !important;
+  }
+}
+
+.mat-mdc-tab-group,
+.mat-mdc-tab-nav-bar {
+  --mdc-tab-indicator-active-indicator-color: unset;
+  --mat-tab-header-active-label-text-color: unset;
+  --mat-tab-header-active-ripple-color: unset;
+  --mat-tab-header-inactive-ripple-color: unset;
+  --mat-tab-header-active-focus-label-text-color: unset;
+  --mat-tab-header-active-hover-label-text-color: unset;
+  --mat-tab-header-active-focus-indicator-color: unset;
+  --mat-tab-header-active-hover-indicator-color: unset;
+}
+
+.mat-mdc-tab-header {
+  --mat-tab-header-label-text-weight: 400;
+}
+
+@select-z-index: 3;
+
+.cdk-overlay-container {
+  background: transparent;
+  .cdk-overlay-pane {
+    background-color: @light-mode-background-color;
+    z-index: @select-z-index;
+    mat-option span {
+      z-index: @select-z-index + 1;
+    }
+  }
+}
+
+.mat-expansion-indicator {
+  color: white !important;
+}
+
+.mat-mdc-paginator-navigation-next,
+.mat-mdc-paginator-navigation-previous {
+  span {
+    display: none;
+  }
+}

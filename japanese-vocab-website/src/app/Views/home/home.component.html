@@ -2,7 +2,7 @@
 <ng-template #page>
     <mat-tab-group *ngIf="data?.length else noData" mat-stretch-tabs="true" mat-align-tabs="center" [selectedIndex]="selectedTabIndex" (selectedIndexChange)="selectTab($event)">
         <mat-tab *ngFor="let typeOption of testTypeOptions" [label]="testTypeDisplayNames[typeOption]" >
-            <mat-expansion-panel>
+            <mat-expansion-panel class="mat-elevation-z0">
                 <mat-expansion-panel-header><i class="fa-solid fa-list"></i></mat-expansion-panel-header>
                 <filters [fields]="filterFields" (filtersChanged)="changeFilters(typeOption, $event)"></filters>
             </mat-expansion-panel>

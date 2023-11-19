@@ -151,7 +151,9 @@ export class HomeComponent implements OnInit {
       source.data = displayData.filter(({ testType }) => testType === type);
       this.sources[type] = source;
     });
-    setTimeout(() => this.isLoading = false, environment.artificialWaitTime);
+    setTimeout(() => {
+      this.isLoading = false;
+    }, environment.artificialWaitTime);
   }
 
   selectTab(index: number): void {

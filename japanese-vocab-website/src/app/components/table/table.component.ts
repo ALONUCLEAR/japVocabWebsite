@@ -50,6 +50,7 @@ export class TableComponent<TData> implements AfterViewInit, OnInit {
       pageSize: ev.pageSize,
       pageIndex: ev.pageIndex,
     };
+
     this.storageService.setSessionStorage(
       `${this.tableName} Config`,
       JSON.stringify(config)
