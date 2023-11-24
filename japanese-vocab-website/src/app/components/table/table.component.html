@@ -5,6 +5,7 @@
         <mat-header-cell *matHeaderCellDef>
             <ng-container *ngIf="column.sortFunc; else sortlessColumn">
               <div class="sortable" (click)="sortData(column.sortFunc, column.name)">
+                <i class="fa-solid fa-up-right-and-down-left-from-center rotated" [style]="{ color: sortableIconColor }"></i>
                 {{ column.title ?? column.name }}
                 <i *ngIf="previouslySortedField === column.name && sortDirection !== 0"
                   [class]="'fa-solid fa-arrow-' + (sortDirection > 0 ? 'up' : 'down')">

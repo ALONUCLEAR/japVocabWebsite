@@ -6,7 +6,7 @@
                 <mat-expansion-panel-header><i class="fa-solid fa-list"></i></mat-expansion-panel-header>
                 <filters [fields]="filterFields" (filtersChanged)="changeFilters(typeOption, $event)"></filters>
             </mat-expansion-panel>
-            <data-table [columns]="tableFields" [dataSource]="sources[typeOption]" [tableName]="typeOption + ' Records'">
+            <data-table [columns]="tableFields" [dataSource]="sources[typeOption]" [tableName]="typeOption + ' Records'" sortableIconColor="#28c35f">
             </data-table>
         </mat-tab>
     </mat-tab-group>

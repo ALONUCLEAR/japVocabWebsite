@@ -75,14 +75,14 @@ export class HomeComponent implements OnInit {
     // {name: 'testType', title: 'TestType'},
     {
       name: 'totalTime',
-      title: 'Time (sec)',
+      title: 'Time(sec)',
       sortFunc: (prev: number, curr: number) => prev - curr,
     },
     {
       name: 'dateSet',
       title: 'Date Set',
       sortFunc: (prev: string, curr: string) =>
-        new Date(curr).getTime() - new Date(prev).getTime(),
+        new Date(prev).getTime() - new Date(curr).getTime(),
     },
   ];
 
