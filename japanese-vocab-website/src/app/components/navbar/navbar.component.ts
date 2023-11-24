@@ -4,6 +4,7 @@ import { StorageService } from 'src/app/Services/storage.service';
 interface NavbarRoute {
   path: string;
   title: string;
+  cssClass?: string;
   icon?: string;
 }
 
@@ -19,9 +20,9 @@ const icons = {
 })
 export class NavbarComponent implements OnInit, AfterViewInit {
   routes: NavbarRoute[] = [
-    { path: '', title: 'Records' },
-    { path: 'theme', title: 'Themes' },
-    { path: 'contact', title: 'Contact Me' },
+    { path: '', title: 'Records', cssClass: 'records' },
+    { path: 'theme', title: 'Themes', cssClass: 'themes' },
+    { path: 'contact', title: 'Contact Me', cssClass: 'contact' },
   ];
   isDarkMode: boolean = false;
 
