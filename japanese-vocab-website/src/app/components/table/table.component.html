@@ -4,8 +4,11 @@
       <ng-container *ngFor="let column of columns" [matColumnDef]="column.name">
         <mat-header-cell *matHeaderCellDef>
             <ng-container *ngIf="column.sortFunc; else sortlessColumn">
-              <div mat-sort-header (click)="sortData(column.sortFunc, column.name)">
+              <div class="sortable" (click)="sortData(column.sortFunc, column.name)">
                 {{ column.title ?? column.name }}
+                <i *ngIf="previouslySortedField === column.name && sortDirection !== 0"
+                  [class]="'fa-solid fa-arrow-' + (sortDirection > 0 ? 'up' : 'down')">
+                </i>
               </div>
             </ng-container>
             <ng-template #sortlessColumn>

@@ -53,9 +53,9 @@ const generateMockData = () => {
         randInt(new Date(2020, 1, 1).getTime(), new Date().getTime())
       ),
       username: randStr(),
-      dayNum: randInt(0, 150),
+      dayNum: randInt(1, 150),
       testType: randInt(0, 2) === 0 ? TestType.SingleDay : TestType.Review,
-      totalTime: randInt(0, 140),
+      totalTime: randInt(5, 250),
     });
   }
 

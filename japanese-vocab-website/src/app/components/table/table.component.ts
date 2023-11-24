@@ -36,11 +36,15 @@ export class TableComponent<TData> implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
 
-  constructor(private storageService: StorageService) {}
-
+  previouslySortedField?: string;
+  sortDirection: number = 1;
+  originalDataOrder: TData[] = [];
   columnNames: string[] = [];
+
+  constructor(private storageService: StorageService) {}
   ngOnInit(): void {
     this.columnNames = this.columns.map(({ name }) => name);
+    this.originalDataOrder = [...this.dataSource.data];
   }
 
   savePageSettings(ev: PageEvent): void {
@@ -80,5 +84,28 @@ export class TableComponent<TData> implements AfterViewInit, OnInit {
     const field = fieldName as keyof TData;
     const data: TData[] = this.dataSource.data.slice();
     data.sort((prev, curr) => sortFunc(prev[field] as T, curr[field] as T));
+
+    if (this.previouslySortedField === fieldName) {
+      switch (this.sortDirection) {
+        case 0:
+          this.sortDirection = 1;
+          break;
+        case 1:
+          this.sortDirection = -1;
+          break;
+        default:
+          this.sortDirection = 0;
+          break;
+      }
+    } else {
+      this.previouslySortedField = fieldName;
+      this.sortDirection = 1;
+    }
+
+    if (this.sortDirection === 0) {
+      this.dataSource.data = [...this.originalDataOrder];
+    } else {
+      this.dataSource.data = this.sortDirection > 0 ? data : data.reverse();
+    }
   }
 }
