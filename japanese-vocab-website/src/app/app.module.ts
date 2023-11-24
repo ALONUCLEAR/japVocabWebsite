@@ -15,7 +15,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ContactComponent } from './Views/contact/contact.component';
+import { AboutComponent } from './Views/about/about.component';
 import { HomeComponent } from './Views/home/home.component';
 import { NotFoundComponent } from './Views/not-found/not-found.component';
 import { ThemesComponent } from './Views/themes/themes.component';
@@ -30,7 +30,7 @@ import { GraphQLModule } from './graphql.module';
   declarations: [
     AppComponent,
     HomeComponent,
-    ContactComponent,
+    AboutComponent,
     ThemesComponent,
     NotFoundComponent,
     NavbarComponent,

@@ -1,0 +1,47 @@
+@import "../../../styles.less";
+
+:host {
+  border: 0.5rem ridge @about-color;
+  display: flex;
+  margin: auto;
+  max-width: 80rem;
+
+  .card-holder {
+    display: block;
+
+    mat-card {
+      color: inherit;
+      background-color: inherit;
+
+      a {
+        color: @about-color;
+        text-decoration: none;
+        font-weight: bolder;
+        font-style: italic;
+      }
+
+      .title {
+        text-decoration: underline;
+        font-weight: bold;
+      }
+
+      mat-card-footer {
+        display: flex;
+        padding: 1rem;
+
+        .note {
+          text-decoration: underline;
+          font-weight: 500;
+          margin: 0.5rem;
+        }
+      }
+    }
+  }
+
+  #table-of-contents {
+    a {
+      color: @home-color;
+      cursor: pointer;
+    }
+  }
+}
