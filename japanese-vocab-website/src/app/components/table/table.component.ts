@@ -32,15 +32,20 @@ export class TableComponent<TData> implements AfterViewInit, OnInit {
   @Input() pageSizeOptions: number[] = [5, 10, 25];
   @Input() tableName?: string;
   @Input() dataSource: MatTableDataSource<TData> = new MatTableDataSource();
+  @Input() sortableIconColor?: string;
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
   @ViewChild(MatSort) sort?: MatSort;
 
-  constructor(private storageService: StorageService) {}
-
+  previouslySortedField?: string;
+  sortDirection: number = 1;
+  originalDataOrder: TData[] = [];
   columnNames: string[] = [];
+
+  constructor(private storageService: StorageService) {}
   ngOnInit(): void {
     this.columnNames = this.columns.map(({ name }) => name);
+    this.originalDataOrder = this.dataSource.data.slice();
   }
 
   savePageSettings(ev: PageEvent): void {
@@ -78,7 +83,26 @@ export class TableComponent<TData> implements AfterViewInit, OnInit {
 
   sortData<T>(sortFunc: SortFunc<T>, fieldName: string): void {
     const field = fieldName as keyof TData;
+
+    if (this.previouslySortedField === fieldName) {
+      switch (this.sortDirection) {
+        case 0:
+          this.sortDirection = 1;
+          break;
+        case 1:
+          this.sortDirection = -1;
+          break;
+        default:
+          this.sortDirection = 0;
+          break;
+      }
+    } else {
+      this.previouslySortedField = fieldName;
+      this.sortDirection = 1;
+    }
+
     const data: TData[] = this.dataSource.data.slice();
-    data.sort((prev, curr) => sortFunc(prev[field] as T, curr[field] as T));
+    data.sort((prev, curr) => sortFunc(prev[field] as T, curr[field] as T) * this.sortDirection);
+    this.dataSource.data = this.sortDirection === 0 ? this.originalDataOrder.slice() : data;
   }
 }

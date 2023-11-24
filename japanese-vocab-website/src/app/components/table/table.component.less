@@ -1,4 +1,4 @@
-@import '../../../styles.less';
+@import "../../../styles.less";
 
 :host {
   .container {
@@ -10,13 +10,32 @@
     min-height: 64px;
   }
 
+  .sortable {
+    cursor: pointer;
+  }
+
+  .rotated {
+    rotate: -45deg;
+  }
+
+  .fa-arrow-up {
+    color: rgb(83, 167, 241);
+  }
+
+  .fa-arrow-down {
+    color: rgb(234, 134, 67);
+  }
+
   mat-header-row,
   mat-header-cell,
   mat-row,
   mat-cell {
     color: unset;
-    text-align: unset;
     overflow: auto;
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    justify-content: center;
   }
 
   ::ng-deep mat-paginator {
