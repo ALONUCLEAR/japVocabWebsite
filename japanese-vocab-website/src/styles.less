@@ -13,7 +13,7 @@ body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  * {
+  *:not(span) {
     color: inherit;
     background-color: inherit;
   }
@@ -57,7 +57,8 @@ body {
 .mat-expansion-panel,
 .mat-mdc-form-field,
 .mat-mdc-select-panel,
-.mat-mdc-tab:not(.mdc-tab--active) {
+.mat-mdc-tab:not(.mdc-tab--active),
+.mdc-button {
   color: inherit !important;
   background-color: inherit !important;
   *:not(.mdc-list-item span, .mdc-list-item, .fa-solid) {

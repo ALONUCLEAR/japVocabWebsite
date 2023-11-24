@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -25,6 +25,7 @@ import { FilterComponent } from './components/filter/filter.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TableComponent } from './components/table/table.component';
 import { GraphQLModule } from './graphql.module';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { GraphQLModule } from './graphql.module';
     MatCardModule,
     MatSlideToggleModule,
     FormsModule,
+    ReactiveFormsModule,
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
@@ -54,7 +56,8 @@ import { GraphQLModule } from './graphql.module';
     GraphQLModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
