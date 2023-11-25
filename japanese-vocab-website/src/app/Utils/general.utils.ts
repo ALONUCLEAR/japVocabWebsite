@@ -26,3 +26,15 @@ export const calcAge = (today: Date, birth: Date): number => {
 };
 
 export const getPrefix = (num: number): string => VOWELS.includes(toWords(num)[0]) ? 'an' : 'a';
+
+export const randInt = (min: number = 0, max: number = 10) => min + Math.floor(Math.random() * (max - min));
+
+export const randStr = (len: number = 8): string => {
+  let str = '';
+  
+  for (let i = 0; i < len; i++) {
+    str += String.fromCharCode(97 + randInt(0, 25));
+  }
+
+  return str;
+};

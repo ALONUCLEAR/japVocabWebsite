@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import axios from 'axios';
+import { StorageService } from 'src/app/Services/storage.service';
 import { error, success } from 'src/app/Utils/alert.utils';
 import { calcAge, getPrefix } from 'src/app/Utils/general.utils';
 import { environment as env } from 'src/environments/environment';
@@ -18,7 +19,7 @@ interface ContactForm {
   templateUrl: './about.component.html',
   styleUrls: ['./about.component.less'],
 })
-export class AboutComponent implements OnInit {
+export class AboutComponent implements OnInit, AfterViewInit {
   myAge: number = 0;
   prefix: string = 'a';
   japVocabAge: number = 0;
@@ -30,11 +31,25 @@ export class AboutComponent implements OnInit {
   })
   isSending: boolean = false;
 
+  constructor(private readonly storageService: StorageService) {}
+
   ngOnInit(): void {
     this.myAge = calcAge(new Date(), MY_BDAY);
     this.prefix = getPrefix(this.myAge);
     this.japVocabAge = calcAge(new Date(), JAP_VOCAB_BDAY);
     this.isSending = false;
+  }
+
+  ngAfterViewInit(): void {
+    const START_SECTION_KEY = 'startSection';
+    const startSection: string = this.storageService.getStorage(START_SECTION_KEY) ?? '';
+    
+    if(startSection.length) {
+      setTimeout(() => {
+        this.scrollToElement(startSection);
+        this.storageService.removeItem(START_SECTION_KEY);
+      }, 200);
+    }
   }
 
   scrollToElement(id: string): void {

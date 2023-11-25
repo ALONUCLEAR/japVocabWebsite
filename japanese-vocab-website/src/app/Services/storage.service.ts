@@ -35,4 +35,10 @@ export class StorageService {
 
     return parsable ? JSON.parse(res) : res as T;
   }
+
+  /**This function removes the key from both storages, DO NOT USE if you want one of them to remain */
+  public removeItem(key: string): void {
+    localStorage.removeItem(key);
+    sessionStorage.removeItem(key);
+  }
 }
