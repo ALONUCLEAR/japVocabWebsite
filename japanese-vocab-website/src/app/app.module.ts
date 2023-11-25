@@ -26,6 +26,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { TableComponent } from './components/table/table.component';
 import { GraphQLModule } from './graphql.module';
 import { MatButtonModule } from '@angular/material/button';
+import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
+import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
+import { RecordsStore } from './Store/records/records.store';
+import { RecordsQuery } from './Store/records/records.query';
 
 @NgModule({
   declarations: [
@@ -58,8 +62,9 @@ import { MatButtonModule } from '@angular/material/button';
     MatProgressSpinnerModule,
     MatSelectModule,
     MatButtonModule,
+    AkitaNgRouterStoreModule,
   ],
-  providers: [],
+  providers: [{ provide: NG_ENTITY_SERVICE_CONFIG, useValue: { baseUrl: 'https://jsonplaceholder.typicode.com' }}, RecordsStore, RecordsQuery],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

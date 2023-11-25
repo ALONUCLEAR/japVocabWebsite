@@ -4,6 +4,7 @@ import { TestType } from '../Views/home/home.component';
 export const getAllRecords = gql`
   query getAllRecords {
     getAllRecords {
+      id
       user {
         username
       }
@@ -17,6 +18,7 @@ export const getAllRecords = gql`
 
 export interface GetAllRecordsQuery {
     getAllRecords: {
+      id: string,
         user: {
             username: string
         },

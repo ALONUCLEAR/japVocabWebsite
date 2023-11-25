@@ -2,12 +2,16 @@ import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { RecordsService } from 'src/app/Services/records.service';
 import { StorageService } from 'src/app/Services/storage.service';
+import { RecordsQuery } from 'src/app/Store/records/records.query';
+import { RecordsStore } from 'src/app/Store/records/records.store';
 import {
   FilterInput,
   FilterOutput,
 } from 'src/app/components/filter/filter.component';
 import { TableField } from 'src/app/components/table/table.component';
 import { environment } from 'src/environments/environment';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
+import { Router } from '@angular/router';
 
 //Until I fix the playground and could generated with codegen later on
 export enum TestType {
@@ -34,34 +38,7 @@ interface FilterableField<TData> extends FilterInput {
   filterFunc(data: TData, target: any): boolean;
 }
 
-const randInt = (min: number = 0, max: number = 10) =>
-  min + Math.floor(Math.random() * (max - min));
-const randStr = (len: number = 8): string => {
-  let str = '';
-  for (let i = 0; i < len; i++) {
-    str += String.fromCharCode(97 + randInt(0, 25));
-  }
-
-  return str;
-};
-
-const generateMockData = () => {
-  const mockData: Record[] = [];
-  for (let index = 0; index < 1000; index++) {
-    mockData.push({
-      dateSet: new Date(
-        randInt(new Date(2020, 1, 1).getTime(), new Date().getTime())
-      ),
-      username: randStr(),
-      dayNum: randInt(1, 150),
-      testType: randInt(0, 2) === 0 ? TestType.SingleDay : TestType.Review,
-      totalTime: randInt(5, 250),
-    });
-  }
-
-  return mockData;
-};
-
+@UntilDestroy()
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -118,8 +95,11 @@ export class HomeComponent implements OnInit {
     type,
   }));
   constructor(
-    private storageService: StorageService,
-    private recordsService: RecordsService
+    private readonly storageService: StorageService,
+    private readonly recordsService: RecordsService,
+    private readonly recordsStore: RecordsStore,
+    private readonly recordsQuery: RecordsQuery,
+    private readonly router: Router,
   ) {
     this.selectedTabIndex =
       this.storageService.getStorage('tabIndex', true) ?? 0;
@@ -128,32 +108,43 @@ export class HomeComponent implements OnInit {
 
   data: Record[] = [];
 
+  moveToAboutSection(sectionId: string): void {
+    this.storageService.setSessionStorage('startSection', sectionId);
+    this.router.navigate(['about']);
+  }
+
   async ngOnInit(): Promise<void> {
     this.isLoading = true;
 
-    if (environment.useRealData) {
-      this.data = await this.recordsService.getAllRecords();
-    } else {
-      this.data = generateMockData();
-    }
+    this.recordsQuery.selectAll().pipe(untilDestroyed(this)).subscribe(records => {
+      this.data = [...records].filter(Boolean)
+        .map(record => ({...record, dateSet: new Date(record.dateSet)}));
 
-    const displayData = this.data.map((record) => ({
-      ...record,
-      dateSet: record.dateSet.toLocaleDateString('en-uk', {
-        year: '2-digit',
-        month: 'short',
-        day: 'numeric',
-      }),
-    }));
-    this.testTypeOptions.forEach((type) => {
-      const source: MatTableDataSource<DisplayRecord> =
-        new MatTableDataSource();
-      source.data = displayData.filter(({ testType }) => testType === type);
-      this.sources[type] = source;
+      const displayData = this.data.map((record) => ({
+        ...record,
+        dateSet: record.dateSet.toLocaleDateString('en-uk', {
+          year: '2-digit',
+          month: 'short',
+          day: 'numeric',
+        }),
+      }));
+
+      this.testTypeOptions.forEach((type) => {
+        const source: MatTableDataSource<DisplayRecord> =
+          new MatTableDataSource();
+        source.data = displayData.filter(({ testType }) => testType === type);
+        this.sources[type] = source;
+      });
     });
+
     setTimeout(() => {
       this.isLoading = false;
     }, environment.artificialWaitTime);
+    //First load with the data from the store, then add to the store
+    const newData = await this.recordsService.getAllRecords();
+
+    this.recordsStore.reset();
+    this.recordsStore.add(newData);
   }
 
   selectTab(index: number): void {

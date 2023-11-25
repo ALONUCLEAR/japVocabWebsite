@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm run config environment.prod && ng serve -c production",
+    "netlify:install": "npm i @datorama/akita@8 --legacy-peer-deps",
     "dev": "npm run config environment.development && ng serve -c development",
     "build": "npm run config environment.prod && ng build -c production",
     "watch": "npm run config environment.development && ng build --watch --configuration development",
@@ -25,6 +26,10 @@
     "@angular/platform-browser-dynamic": "^16.0.0",
     "@angular/router": "^16.0.0",
     "@apollo/client": "^3.0.0",
+    "@datorama/akita": "^7.1.1",
+    "@datorama/akita-ng-entity-service": "^7.0.0",
+    "@datorama/akita-ng-router-store": "^7.0.0",
+    "@ngneat/until-destroy": "^10.0.0",
     "apollo-angular": "^5.0.2",
     "axios": "^1.6.2",
     "graphql": "^16.8.1",
@@ -32,6 +37,7 @@
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.10.1",
     "tslib": "^2.3.0",
+    "uuid": "^9.0.1",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {
@@ -45,6 +51,7 @@
     "@types/jasmine": "~4.3.0",
     "@types/jquery": "^3.5.27",
     "@types/number-to-words": "^1.2.3",
+    "@types/uuid": "^9.0.7",
     "jasmine-core": "~4.6.0",
     "karma": "~6.4.0",
     "karma-chrome-launcher": "~3.2.0",
