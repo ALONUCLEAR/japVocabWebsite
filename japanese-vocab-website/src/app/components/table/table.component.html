@@ -1,6 +1,6 @@
 <div class="header">
   <div class="container">
-    <mat-table [dataSource]="dataSource" matSort>
+    <mat-table [dataSource]="dataSource">
       <ng-container *ngFor="let column of columns" [matColumnDef]="column.name">
         <mat-header-cell *matHeaderCellDef>
             <ng-container *ngIf="column.sortFunc; else sortlessColumn">

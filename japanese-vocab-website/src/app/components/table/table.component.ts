@@ -2,11 +2,12 @@ import {
   AfterViewInit,
   Component,
   Input,
+  OnChanges,
   OnInit,
+  SimpleChanges,
   ViewChild,
 } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { StorageService } from 'src/app/Services/storage.service';
 export type SortFunc<T> = (prev: T, curr: T) => number;
@@ -27,7 +28,7 @@ type PageSettings = {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.less'],
 })
-export class TableComponent<TData> implements AfterViewInit, OnInit {
+export class TableComponent<TData> implements AfterViewInit, OnInit, OnChanges {
   @Input() columns: TableField[] = [];
   @Input() pageSizeOptions: number[] = [5, 10, 25];
   @Input() tableName?: string;
@@ -35,7 +36,6 @@ export class TableComponent<TData> implements AfterViewInit, OnInit {
   @Input() sortableIconColor?: string;
 
   @ViewChild(MatPaginator) paginator?: MatPaginator;
-  @ViewChild(MatSort) sort?: MatSort;
 
   previouslySortedField?: string;
   sortDirection: number = 1;
@@ -46,6 +46,19 @@ export class TableComponent<TData> implements AfterViewInit, OnInit {
   ngOnInit(): void {
     this.columnNames = this.columns.map(({ name }) => name);
     this.originalDataOrder = this.dataSource.data.slice();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['dataSource']) {
+      //resert original data order every time hasChanged is toggled
+      this.originalDataOrder = this.dataSource.data.slice();
+      this.initPaginator();
+      
+      if (this.previouslySortedField && this.sortDirection !== 0) {
+        const sortedColumn = this.columns.find(({name}) => name === this.previouslySortedField)!;
+        this.sortWithoutChanging(sortedColumn.sortFunc!, this.previouslySortedField as keyof TData);
+      }
+    }
   }
 
   savePageSettings(ev: PageEvent): void {
@@ -62,7 +75,7 @@ export class TableComponent<TData> implements AfterViewInit, OnInit {
     );
   }
 
-  initPaginatorAndSort() {
+  initPaginator() {
     if (this.paginator) {
       const { pageSize, pageIndex } =
         this.storageService.getStorage<PageSettings>(
@@ -73,17 +86,13 @@ export class TableComponent<TData> implements AfterViewInit, OnInit {
       this.paginator.pageIndex = pageIndex;
       this.dataSource.paginator = this.paginator;
     }
-
-    this.dataSource.sort = this.sort ?? null;
   }
 
   ngAfterViewInit(): void {
-    this.initPaginatorAndSort();
+    this.initPaginator();
   }
 
   sortData<T>(sortFunc: SortFunc<T>, fieldName: string): void {
-    const field = fieldName as keyof TData;
-
     if (this.previouslySortedField === fieldName) {
       switch (this.sortDirection) {
         case 0:
@@ -101,6 +110,10 @@ export class TableComponent<TData> implements AfterViewInit, OnInit {
       this.sortDirection = 1;
     }
 
+    this.sortWithoutChanging(sortFunc, fieldName as keyof TData);
+  }
+
+  sortWithoutChanging<T>(sortFunc: SortFunc<T>, field: keyof TData): void {
     const data: TData[] = this.dataSource.data.slice();
     data.sort((prev, curr) => sortFunc(prev[field] as T, curr[field] as T) * this.sortDirection);
     this.dataSource.data = this.sortDirection === 0 ? this.originalDataOrder.slice() : data;
