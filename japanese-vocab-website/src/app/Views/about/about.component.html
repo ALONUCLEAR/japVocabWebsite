@@ -131,9 +131,10 @@
                 <mat-label>The message</mat-label>
                 <textarea matInput formControlName="content" rows="5" placeholder="Your message that you want to send" required> </textarea>
             </mat-form-field>
-            <button mat-button class="button send-butt" type="submit">
+            <button *ngIf="!isSending" mat-button class="send-butt" type="submit">
                 <i class="fa-solid fa-paper-plane"></i>&nbsp;Send
             </button>
+            <mat-spinner *ngIf="isSending" class="send-butt" style="height: 30px;"></mat-spinner>
         </form>
     </mat-card-content>
   </mat-card>

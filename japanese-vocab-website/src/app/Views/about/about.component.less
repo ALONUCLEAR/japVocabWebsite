@@ -25,6 +25,15 @@
         font-weight: bold;
       }
 
+      mat-spinner {
+        stroke: @about-color;
+        &::ng-deep {
+          svg {
+            stroke: @about-color;
+          }
+        }
+      }
+
       mat-card-footer {
         display: flex;
         padding: 1rem;
@@ -64,5 +73,3 @@
     }
   }
 }
-
-//TODO: make first fetch when the app loads and store it in a store so that it is actually useful as temporary data until the other data reaches us.
