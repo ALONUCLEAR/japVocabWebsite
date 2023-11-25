@@ -1,0 +1,75 @@
+@import "../../../styles.less";
+
+:host {
+  border: 0.5rem ridge @about-color;
+  display: flex;
+  margin: auto;
+  max-width: 80rem;
+
+  .card-holder {
+    display: block;
+
+    mat-card {
+      color: inherit;
+      background-color: inherit;
+
+      a {
+        color: @about-color;
+        text-decoration: none;
+        font-weight: bolder;
+        font-style: italic;
+      }
+
+      .title {
+        text-decoration: underline;
+        font-weight: bold;
+      }
+
+      mat-spinner {
+        stroke: @about-color;
+        &::ng-deep {
+          svg {
+            stroke: @about-color;
+          }
+        }
+      }
+
+      mat-card-footer {
+        display: flex;
+        padding: 1rem;
+
+        .note {
+          text-decoration: underline;
+          font-weight: 500;
+          margin: 0.5rem;
+        }
+      }
+    }
+  }
+
+  #table-of-contents {
+    a {
+      color: @home-color;
+      cursor: pointer;
+    }
+  }
+
+  #contact-card {
+    width: 80%;
+    box-shadow: 0px 11px 15px -7px @about-color, 0px 24px 38px 3px @about-color,
+      0px 9px 46px 8px @about-color;
+    margin: 4rem auto;
+
+    form {
+      display: grid;
+
+      textarea::placeholder {
+        color: inherit;
+      }
+
+      .send-butt {
+        width: fit-content;
+      }
+    }
+  }
+}

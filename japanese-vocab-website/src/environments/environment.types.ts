@@ -4,4 +4,7 @@ export interface Environment {
     type: EnvironmentType;
     useRealData: boolean;
     artificialWaitTime: number;
+    graphqlApiRoute?: string;
+    emailServiceRoute?: string;
+    myEmail?: string;
 }

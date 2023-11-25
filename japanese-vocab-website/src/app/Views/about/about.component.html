@@ -1,0 +1,141 @@
+<div class="card-holder">
+  <mat-card id="table-of-contents">
+    <mat-card-header>
+      <mat-card-title> Table of contents </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>Here's a quick list to all the topics here</p>
+      <ol>
+        <li>
+          <a (click)="scrollToElement('about-me')">About Me</a>
+        </li>
+        <li>
+          <a (click)="scrollToElement('about-wesbite')">About The wesbite</a>
+        </li>
+        <li>
+          <a (click)="scrollToElement('technical-knowledge')">Technical Info</a>
+          <ul>
+            <li><a (click)="scrollToElement('development-points')"> Developing </a></li>
+            <li><a (click)="scrollToElement('deployment-points')"> Deployments </a></li>
+          </ul>
+        </li>
+        <li>
+          <a (click)="scrollToElement('contact-card')">Contact Me</a>
+        </li>
+      </ol>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card id="about-me">
+    <mat-card-header>
+      <mat-card-title> About Me </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>I'm {{ prefix }} {{ myAge }} years old programmer from Israel.</p>
+      <p>
+        I program mainly in unity with C#, or make web apps with VueJs or
+        Angular and TS, though I can handle myself pretty well in python and
+        Java(including tools like Spring and Hibernate).
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card id="about-website">
+    <mat-card-header>
+      <mat-card-title> About This Website </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        About {{ japVocabAge }} years ago I first publish the <a href="https://alonuclear.itch.io/japanesevocabpractice" target="_blank">japaneseVocabApp</a>.
+      </p>
+      <p>
+        This app was one of many attempts for me to use my other skills in order
+        to advance my japanese learning and make it more fun.
+      </p>
+      <p>Overtime it grew more and more and so did my technical knowledge.</p>
+      <p>
+        As such I kept adding more and more features to the app, as well as
+        using it to try out things like microservices.
+      </p>
+      <p>
+        This website is mainly here for the records tab, the rest of this
+        website is mostly static, only to be changed maybe once every update,
+        but I still wanted to make it.
+      </p>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card id="technical-knowledge">
+    <mat-card-header>
+      <mat-card-title> Technical Info </mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        If for some reason you're interested in the technologies I've used for
+        this project here they are. This list is likely to keep on going the
+        more I expand on the project.
+      </p>
+      <p class="title" id="development-points">Developing</p>
+      <ul>
+        <li>The app itself - written in unity using C#</li>
+        <li>
+          Users, Settings and Recovery Codes - managed by microservices written
+          in js/ts mainly with express
+        </li>
+        <li>Email Sending - handled by a C# .Net web service</li>
+        <li>
+          Records - the records service, that mainly serves this website is
+          written in java with spring, and unlike the other microservices that
+          use rest, this one exposes a graphql api
+        </li>
+        <li>This website - written in angular 16 and typescript</li>
+      </ul>
+      <p class="title" id="deployment-points">Deployments</p>
+      <ul>
+        <li>
+          The unity app is just built locally and then the apk is distributed in
+          the
+          <a href="https://alonuclear.itch.io/japanesevocabpractice" target="_blank">Itch.IO Page</a>
+        </li>
+        <li>
+          This website(and probably any other one I host) is deployed using
+          <a href="https://app.netlify.com/" target="_blank">Netlify</a>
+        </li>
+        <li>
+          The microservices are mostly deployed using
+          <a href="https://dashboard.render.com/" target="_blank">Render</a>,
+          besides one that is covered using the free plan at
+          <a href="https://www.cyclic.sh/" target="_blank">Cyclic</a>
+          <br /><sub>ps. everytime loading takes a while, be it in app or when loading the table, blame it on Render</sub>
+        </li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+
+  <mat-card id="contact-card">
+    <mat-card-header>
+        <mat-card-title>Contact Me</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+        <form [formGroup]="contactForm" (ngSubmit)="submitContactMail()">
+            <mat-form-field>
+                <mat-label>Title</mat-label>
+                <input matInput formControlName="title" required>
+            </mat-form-field>
+            <mat-form-field floatLabel="always">
+              <mat-label>Your email(for replies)</mat-label>
+              <input matInput placeholder="example@mail.com" formControlName="email">
+              <mat-error *ngIf="contactForm.controls['email'].invalid">Invalid Email</mat-error>
+            </mat-form-field>
+            <mat-form-field floatLabel="always">
+                <mat-label>The message</mat-label>
+                <textarea matInput formControlName="content" rows="5" placeholder="Your message that you want to send" required> </textarea>
+            </mat-form-field>
+            <button *ngIf="!isSending" mat-button class="send-butt" type="submit">
+                <i class="fa-solid fa-paper-plane"></i>&nbsp;Send
+            </button>
+            <mat-spinner *ngIf="isSending" class="send-butt" style="height: 30px;"></mat-spinner>
+        </form>
+    </mat-card-content>
+  </mat-card>
+</div>

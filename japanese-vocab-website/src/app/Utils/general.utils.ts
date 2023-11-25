@@ -1,3 +1,5 @@
+import { toWords } from "number-to-words";
+
 /**A function to convert big integers(in string form) to their number counterpart.
  * Since big integers are bigger than numbers can be(otherwise we would've used numbers),
  * This function gets a dotPlacement variable, whic is the power of 10 that we divide by,
@@ -13,3 +15,14 @@ export function bigIntStrToNumber(bigIntStr: string, dotPlacement: number = 3): 
     
     return Number(smallerString);
 }
+
+const VOWELS = [...'aiueo'];
+
+export const calcAge = (today: Date, birth: Date): number => {
+  const millisecondsPerYear = 365.25 * 24 * 60 * 60 * 1000; // Average milliseconds in a year
+  const msDiff = today.getTime() - birth.getTime();
+
+  return Math.floor(msDiff / millisecondsPerYear);
+};
+
+export const getPrefix = (num: number): string => VOWELS.includes(toWords(num)[0]) ? 'an' : 'a';

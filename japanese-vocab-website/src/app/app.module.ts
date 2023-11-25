@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -15,7 +15,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ContactComponent } from './Views/contact/contact.component';
+import { AboutComponent } from './Views/about/about.component';
 import { HomeComponent } from './Views/home/home.component';
 import { NotFoundComponent } from './Views/not-found/not-found.component';
 import { ThemesComponent } from './Views/themes/themes.component';
@@ -25,12 +25,13 @@ import { FilterComponent } from './components/filter/filter.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { TableComponent } from './components/table/table.component';
 import { GraphQLModule } from './graphql.module';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    ContactComponent,
+    AboutComponent,
     ThemesComponent,
     NotFoundComponent,
     NavbarComponent,
@@ -44,6 +45,7 @@ import { GraphQLModule } from './graphql.module';
     MatCardModule,
     MatSlideToggleModule,
     FormsModule,
+    ReactiveFormsModule,
     MatPaginatorModule,
     MatSortModule,
     MatTableModule,
@@ -54,7 +56,8 @@ import { GraphQLModule } from './graphql.module';
     GraphQLModule,
     HttpClientModule,
     MatProgressSpinnerModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -22,7 +22,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
   routes: NavbarRoute[] = [
     { path: '', title: 'Records', cssClass: 'records' },
     { path: 'theme', title: 'Themes', cssClass: 'themes' },
-    { path: 'contact', title: 'Contact Me', cssClass: 'contact' },
+    { path: 'about', title: 'About', cssClass: 'about' },
   ];
   isDarkMode: boolean = false;
 

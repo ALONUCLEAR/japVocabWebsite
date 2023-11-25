@@ -6,14 +6,14 @@
 
 @home-color: rgb(40, 195, 95);
 @themes-color: rgb(197, 40, 197);
-@contact-color: rgb(35, 118, 196);
+@about-color: rgb(35, 118, 196);
 
 html,
 body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  * {
+  *:not(span) {
     color: inherit;
     background-color: inherit;
   }
@@ -57,7 +57,8 @@ body {
 .mat-expansion-panel,
 .mat-mdc-form-field,
 .mat-mdc-select-panel,
-.mat-mdc-tab:not(.mdc-tab--active) {
+.mat-mdc-tab:not(.mdc-tab--active),
+.mdc-button {
   color: inherit !important;
   background-color: inherit !important;
   *:not(.mdc-list-item span, .mdc-list-item, .fa-solid) {
@@ -107,4 +108,8 @@ body {
   span {
     display: none;
   }
+}
+
+div.swal2-icon.swal2-success [class^=swal2-success-line] {
+  z-index: 3 !important;
 }
