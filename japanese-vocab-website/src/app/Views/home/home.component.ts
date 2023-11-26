@@ -94,6 +94,8 @@ export class HomeComponent implements OnInit {
     name,
     type,
   }));
+  finishedFetching: boolean = false;
+
   constructor(
     private readonly storageService: StorageService,
     private readonly recordsService: RecordsService,
@@ -115,6 +117,7 @@ export class HomeComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.isLoading = true;
+    this.finishedFetching = false;
 
     this.recordsQuery.selectAll().pipe(untilDestroyed(this)).subscribe(records => {
       this.data = [...records].filter(Boolean)
@@ -145,6 +148,7 @@ export class HomeComponent implements OnInit {
 
     this.recordsStore.reset();
     this.recordsStore.add(newData);
+    this.finishedFetching = true;
   }
 
   selectTab(index: number): void {
