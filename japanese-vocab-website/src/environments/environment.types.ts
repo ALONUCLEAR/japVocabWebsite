@@ -5,6 +5,7 @@ export interface Environment {
     useRealData: boolean;
     artificialWaitTime: number;
     graphqlApiRoute?: string;
+    hasuraAdmin?: string;
     emailServiceRoute?: string;
     myEmail?: string;
 }
