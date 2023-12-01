@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm run config environment.prod && ng serve -c production",
-    "netlify:install": "npm i @datorama/akita@8 --legacy-peer-deps && npm run fix",
+    "netlify:install": "npm i @datorama/akita@8 --legacy-peer-deps",
     "ni": "npm run netlify:install",
     "dev": "npm run config environment.development && ng serve -c development",
     "build": "npm run config environment.prod && ng build -c production",
