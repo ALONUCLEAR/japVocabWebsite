@@ -9,8 +9,8 @@ const setEnv = (path: string = 'environment') => {
   const endIndex = oldFile.indexOf('};');
   // `environment.ts` file structure
   const envConfigFile = `${oldFile.substring(0, endIndex).trim()},
-    //TODO: think if I really need this here, currently use it hardcoded
-    //graphqlApiRoute: 'https://japanese-vocab-graphql-api.onrender.com/graphql',
+    graphqlApiRoute: '${process.env['GRAPHQL_API_ROUTE']}',
+    hasuraAdmin: '${process.env['HASURA_ADMIN']}',
     emailServiceRoute: '${process.env["EMAIL_SERVICE"]}',
     myEmail: '${process.env['MY_EMAIL']}'
 };`.trim();

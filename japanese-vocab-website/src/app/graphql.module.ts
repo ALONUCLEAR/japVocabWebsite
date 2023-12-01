@@ -2,22 +2,29 @@ import { APOLLO_OPTIONS, ApolloModule } from 'apollo-angular';
 import { HttpLink } from 'apollo-angular/http';
 import { NgModule } from '@angular/core';
 import { ApolloClientOptions, InMemoryCache } from '@apollo/client/core';
+import { environment } from 'src/environments/environment';
+import { HttpHeaders } from '@angular/common/http';
 
-const graphqlUrl = 'https://japanese-vocab-graphql-api.onrender.com/graphql'; 
+const graphqlUrl = environment.graphqlApiRoute;
 export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
   return {
-    link: httpLink.create({ uri: graphqlUrl }),
+    link: httpLink.create({
+      uri: graphqlUrl,
+      headers: new HttpHeaders({
+        'x-hasura-admin-secret': environment.hasuraAdmin ?? 'NOT AN ADMIN',
+      }),
+    }),
     cache: new InMemoryCache(),
     defaultOptions: {
       query: {
         fetchPolicy: 'no-cache',
-        errorPolicy: 'all'
+        errorPolicy: 'all',
       },
       mutate: {
         fetchPolicy: 'no-cache',
-        errorPolicy: 'all'
-      }
-    }
+        errorPolicy: 'all',
+      },
+    },
   };
 }
 

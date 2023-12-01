@@ -34,6 +34,15 @@ const generateMockData = () => {
 export class RecordsService {
   constructor(private apollo: Apollo) { }
 
+  protected mapHasuraTypeToRecordWithId(hasuraInfo?: GetAllRecordsQuery | null): RecordWithId[] {
+    return hasuraInfo?.japanese_vocab_records.map(graphqlRecord => ({
+      ...graphqlRecord,
+      username: graphqlRecord.user.username,
+      totalTime: bigIntStrToNumber(`${graphqlRecord.totalTimeInMs}`),
+      dateSet: new Date(graphqlRecord.dateSet)
+    })) ?? [];
+  }
+
   public async getAllRecords(): Promise<RecordWithId[]> {
     if (!environment.useRealData) {
       return generateMockData();
@@ -43,11 +52,6 @@ export class RecordsService {
       query: getAllRecords
     }).toPromise();
 
-    return res?.data?.getAllRecords.map(graphqlRecord => ({
-      ...graphqlRecord,
-      username: graphqlRecord.user.username,
-      totalTime: bigIntStrToNumber(graphqlRecord.totalTimeInMs),
-      dateSet: new Date(graphqlRecord.dateSet)
-    })) ?? [];
+    return this.mapHasuraTypeToRecordWithId(res?.data);
   }
 }
