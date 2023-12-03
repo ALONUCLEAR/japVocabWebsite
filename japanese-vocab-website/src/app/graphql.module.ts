@@ -11,7 +11,8 @@ export function createApollo(httpLink: HttpLink): ApolloClientOptions<any> {
     link: httpLink.create({
       uri: graphqlUrl,
       headers: new HttpHeaders({
-        'x-hasura-admin-secret': environment.hasuraAdmin ?? 'NOT AN ADMIN',
+        // 'x-hasura-admin-secret': environment.hasuraAdmin ?? 'NOT AN ADMIN',
+        'x-hasura-role': environment.hasuraRole ?? 'NO ROLE WAS DEFINED'
       }),
     }),
     cache: new InMemoryCache(),

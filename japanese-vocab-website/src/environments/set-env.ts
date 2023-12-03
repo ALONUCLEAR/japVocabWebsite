@@ -10,7 +10,7 @@ const setEnv = (path: string = 'environment') => {
   // `environment.ts` file structure
   const envConfigFile = `${oldFile.substring(0, endIndex).trim()},
     graphqlApiRoute: '${process.env['GRAPHQL_API_ROUTE']}',
-    hasuraAdmin: '${process.env['HASURA_ADMIN']}',
+    hasuraRole: '${process.env['HASURA_ROLE']}',
     emailServiceRoute: '${process.env["EMAIL_SERVICE"]}',
     myEmail: '${process.env['MY_EMAIL']}'
 };`.trim();
