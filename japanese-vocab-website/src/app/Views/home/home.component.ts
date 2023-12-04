@@ -120,6 +120,10 @@ export class HomeComponent implements OnInit {
     this.finishedFetching = false;
 
     this.recordsQuery.selectAll().pipe(untilDestroyed(this)).subscribe(records => {
+      if (!records) {
+        return;
+      }
+
       this.data = [...records].filter(Boolean)
         .map(record => ({...record, dateSet: new Date(record.dateSet)}));
 
@@ -138,17 +142,13 @@ export class HomeComponent implements OnInit {
         source.data = displayData.filter(({ testType }) => testType === type);
         this.sources[type] = source;
       });
+
+      this.finishedFetching = true;
     });
 
     setTimeout(() => {
       this.isLoading = false;
     }, environment.artificialWaitTime);
-    //First load with the data from the store, then add to the store
-    const newData = await this.recordsService.getAllRecords();
-
-    this.recordsStore.reset();
-    this.recordsStore.add(newData);
-    this.finishedFetching = true;
   }
 
   selectTab(index: number): void {
