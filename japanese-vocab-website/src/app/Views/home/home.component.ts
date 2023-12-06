@@ -1,18 +1,18 @@
 import { Component, OnInit } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
-import { RecordsService } from 'src/app/Services/records.service';
-import { StorageService } from 'src/app/Services/storage.service';
-import { RecordsQuery } from 'src/app/Store/records/records.query';
-import { RecordsStore } from 'src/app/Store/records/records.store';
+import { RecordsService } from '@services/records.service';
+import { StorageService } from '@services/storage.service';
+import { RecordsQuery } from '@store/records/records.query';
+import { RecordsStore } from '@store/records/records.store';
 import {
   FilterInput,
   FilterOutput,
-} from 'src/app/components/filter/filter.component';
-import { TableField } from 'src/app/components/table/table.component';
-import { environment } from 'src/environments/environment';
+} from '@components/filter/filter.component';
+import { TableField } from '@components/table/table.component';
+import { environment } from '@env/environment';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Router } from '@angular/router';
-import { defaultDateSort, defaultNumSort } from 'src/app/Utils/sorting.utils';
+import { defaultDateSort, defaultNumSort } from '@utils/sorting.utils';
 
 //Until I fix the playground and could generated with codegen later on
 export enum TestType {

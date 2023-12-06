@@ -15,21 +15,21 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AboutComponent } from './Views/about/about.component';
-import { HomeComponent } from './Views/home/home.component';
-import { NotFoundComponent } from './Views/not-found/not-found.component';
-import { ThemesComponent } from './Views/themes/themes.component';
+import { AboutComponent } from '@views/about/about.component';
+import { HomeComponent } from '@views/home/home.component';
+import { NotFoundComponent } from '@views/not-found/not-found.component';
+import { ThemesComponent } from '@views/themes/themes.component';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { FilterComponent } from './components/filter/filter.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { TableComponent } from './components/table/table.component';
+import { FilterComponent } from '@components/filter/filter.component';
+import { NavbarComponent } from '@components/navbar/navbar.component';
+import { TableComponent } from '@components/table/table.component';
 import { GraphQLModule } from './graphql.module';
 import { MatButtonModule } from '@angular/material/button';
 import { NG_ENTITY_SERVICE_CONFIG } from '@datorama/akita-ng-entity-service';
 import { AkitaNgRouterStoreModule } from '@datorama/akita-ng-router-store';
-import { RecordsStore } from './Store/records/records.store';
-import { RecordsQuery } from './Store/records/records.query';
+import { RecordsStore } from '@store/records/records.store';
+import { RecordsQuery } from '@store/records/records.query';
 
 @NgModule({
   declarations: [

@@ -1,5 +1,5 @@
 import { EntityState, EntityStore, StoreConfig, persistState } from '@datorama/akita';
-import { RecordWithId } from 'src/app/Services/records.service';
+import { RecordWithId } from '@services/records.service';
 
 export interface RecordsState extends EntityState<RecordWithId, string> { }
 

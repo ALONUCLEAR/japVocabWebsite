@@ -1,5 +1,5 @@
 import { gql } from 'apollo-angular';
-import { TestType } from '../Views/home/home.component';
+import { TestType } from '@views/home/home.component';
 
 export const getAllRecords = gql`
   query getAllRecords {
