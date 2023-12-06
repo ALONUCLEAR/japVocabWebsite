@@ -12,6 +12,7 @@ import { TableField } from 'src/app/components/table/table.component';
 import { environment } from 'src/environments/environment';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import { Router } from '@angular/router';
+import { defaultDateSort, defaultNumSort } from 'src/app/Utils/sorting.utils';
 
 //Until I fix the playground and could generated with codegen later on
 export enum TestType {
@@ -47,19 +48,24 @@ interface FilterableField<TData> extends FilterInput {
 export class HomeComponent implements OnInit {
   isLoading: boolean = true;
   tableFields: TableField[] = [
-    { name: 'username', title: 'User' },
-    { name: 'dayNum', title: 'Day' },
-    // {name: 'testType', title: 'TestType'},
+    { 
+      name: 'username',
+      title: 'User',
+    },
+    { 
+      name: 'dayNum',
+      title: 'Day',
+      sortFunc: defaultNumSort, 
+    },
     {
       name: 'totalTime',
       title: 'Time(sec)',
-      sortFunc: (prev: number, curr: number) => prev - curr,
+      sortFunc: defaultNumSort,
     },
     {
       name: 'dateSet',
       title: 'Date Set',
-      sortFunc: (prev: string, curr: string) =>
-        new Date(prev).getTime() - new Date(curr).getTime(),
+      sortFunc: defaultDateSort,
     },
   ];
 
