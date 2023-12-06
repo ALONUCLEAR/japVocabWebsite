@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { RecordsService } from './Services/records.service';
-import { RecordsStore } from './Store/records/records.store';
+import { RecordsService } from '@services/records.service';
+import { RecordsStore } from '@store/records/records.store';
 
 @Component({
   selector: 'app-root',

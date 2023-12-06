@@ -22,7 +22,18 @@
       "ES2022",
       "dom",
       "esnext.asynciterable"
-    ],
+    ], 
+    "paths": {
+      "@/*": ["src/app/*"],
+      "@assets/*": ["src/assets/*"],
+      "@components/*": ["src/app/components/*"],
+      "@documents/*": ["src/app/Documents/*"],
+      "@env/*": ["src/environments/*"],
+      "@services/*": ["src/app/Services/*"],
+      "@store/*": ["src/app/Store/*"],
+      "@utils/*": ["src/app/Utils/*"],
+      "@views/*": ["src/app/Views/*"],
+    },
     "allowSyntheticDefaultImports": true
   },
   "angularCompilerOptions": {

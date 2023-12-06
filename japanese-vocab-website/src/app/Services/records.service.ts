@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Apollo } from 'apollo-angular';
-import { Record, TestType } from '../Views/home/home.component';
-import { GetAllRecordsQuery, getAllRecords } from '../Documents/records.graphql';
-import { bigIntStrToNumber, randInt, randStr } from '../Utils/general.utils';
-import { environment } from 'src/environments/environment';
+import { Record, TestType } from '@views/home/home.component';
+import { GetAllRecordsQuery, getAllRecords } from '@documents/records.graphql';
+import { bigIntStrToNumber, randInt, randStr } from '@utils/general.utils';
+import { environment } from '@env/environment';
 import { v4 as uuidv4 } from 'uuid';
 
 export interface RecordWithId extends Record {

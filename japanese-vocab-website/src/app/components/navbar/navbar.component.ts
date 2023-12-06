@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { StorageService } from 'src/app/Services/storage.service';
+import { StorageService } from '@services/storage.service';
 
 interface NavbarRoute {
   path: string;

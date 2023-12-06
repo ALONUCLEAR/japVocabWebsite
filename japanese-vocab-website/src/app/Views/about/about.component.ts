@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import axios from 'axios';
-import { StorageService } from 'src/app/Services/storage.service';
-import { error, success } from 'src/app/Utils/alert.utils';
-import { calcAge, getPrefix } from 'src/app/Utils/general.utils';
-import { environment as env } from 'src/environments/environment';
+import { StorageService } from '@services/storage.service';
+import { error, success } from '@utils/alert.utils';
+import { calcAge, getPrefix } from '@utils/general.utils';
+import { environment as env } from '@env/environment';
 
 const MY_BDAY = new Date(2004, 6, 11), JAP_VOCAB_BDAY = new Date(2022, 6, 31);
 
