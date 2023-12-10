@@ -4,25 +4,12 @@
   </mat-card-header>
   <mat-card-content>
     <p>List of topic based days:</p>
-    <p>N5(1 - 19):</p>
-    <ul>
-      <li>colors(only part of the vocab for this day) - 1</li>
-      <li>family - 2</li>
-      <li>counters - day 9</li>
-      <li>counters for days/days of the month - day 10</li>
-      <li>a few more counters and days of the month - day 11</li>
-    </ul>
-    <p>N4(20 - 63):</p>
-    <ul>
-      <li>Words related to the suffixes - 54</li>
-      <li>Suffixes – 55</li>
-    </ul>
-    <p>N3(64 - 175):</p>
-    <ul>
-      <li>Love & Emptiness - 64</li>
-      <li>Food – 134</li>
-      <li>Days of the week - 174</li>
-    </ul>
+    <ng-container *ngFor="let prof of availableProficiencies">
+      <p>{{ prof }}({{ proficiencyRanges[prof] }}):</p>
+      <ul>
+        <li *ngFor="let theme of classes.get(prof)">{{ theme.title }} - {{ theme.dayNum }}</li>
+      </ul>
+    </ng-container>
   </mat-card-content>
   <mat-card-footer>
     <p class="note"> NOTE: </p>
