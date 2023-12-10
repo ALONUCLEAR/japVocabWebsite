@@ -11,7 +11,7 @@ const N5Themes: Theme[] = [
   { title: "family", dayNum: 2 },
   { title: "counters", dayNum: 9 },
   { title: "counters for days/days of the month", dayNum: 10 },
-  { title: "a few more counters and days of the month", dayNum: 11 },
+  { title: "more counters and days of the month", dayNum: 11 },
 ];
 
 const N4Themes: Theme[] = [
